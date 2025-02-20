@@ -14,8 +14,18 @@ function update() {
   );
 }
 
+function getValidDateOrDefault(input, defaultValue) {
+    const timestamp = Date.parse(input);
+    return isNaN(timestamp) ? defaultValue : input;
+}
+
+const DEFAULT_START_DATE = "2025-01-04";
+
 const startDateInput = document.getElementById("start_date");
-startDateInput.value = "2025-01-04";
+startDateInput.value = getValidDateOrDefault(
+    new URLSearchParams(window.location.search).get("start_date"),
+    DEFAULT_START_DATE,
+);
 update();
 
 startDateInput.addEventListener("input", update);
